@@ -27,16 +27,25 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-async function storeInformation(){
-  const user = new User({
-    name: 'Pierre',
-    age: 68,
+async function fetchUser() {
+  const users = await User.find({
     isMarried: false,
-    salary: 90000,
-    gender: 'M',
-  });
-  await user.save();
-  console.log(user);
+  }).select('name salary').sort('-salary').limit(2);
+  // User.find({isMarried:false}).countDocuments();
+  console.log(users);
 }
+fetchUser();
 
-storeInformation();
+// async function storeInformation(){
+//   const user = new User({
+//     name: 'Pierre',
+//     age: 68,
+//     isMarried: false,
+//     salary: 90000,
+//     gender: 'M',
+//   });
+//   await user.save();
+//   console.log(user);
+// }
+
+//storeInformation();
