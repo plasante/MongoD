@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+/*
+    Database test will be created automatically and will contain several collections of document.
+    A user object is called a document
+    Many user objects are called a collection of users
+
+ */
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.log(err));
