@@ -27,14 +27,27 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-async function updateUser() {
-  const user =
-      await User.findByIdAndUpdate('6741e77213a06ffc0c9228b6',{
-        isMarried: false, age: 68
-      }, {new: true, runValidators: true});
-  console.log(user);
+// Delete More than one
+async function deleteUser() {
+  await User.deleteMany({ isMarried: false });
 }
-updateUser();
+deleteUser();
+
+// // deleteOne
+// async function deleteUser() {
+//   await User.deleteOne({ _id: '6027d1fd8d4a543a2049d1a0'});
+//   console.log('Deleting user from MongoDB with ID: ' + '6027d1fd8d4a543a2049d1a0');
+// }
+// deleteUser();
+
+// async function updateUser() {
+//   const user =
+//       await User.findByIdAndUpdate('6741e77213a06ffc0c9228b6',{
+//         isMarried: false, age: 68
+//       }, {new: true, runValidators: true});
+//   console.log(user);
+// }
+// updateUser();
 
 // async function updateUser() {
 //   const user = await User.findById('6741e77213a06ffc0c9228b6');
