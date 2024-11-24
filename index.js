@@ -27,14 +27,72 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-async function fetchUser() {
-  const users = await User.find({
-    isMarried: false,
-  }).select('name salary').sort('-salary').limit(2);
-  // User.find({isMarried:false}).countDocuments();
+// Find users whose age is greater than 40 or they are not married
+async function fetchInformation() {
+  const users =
+      await User
+          .find()
+          .or( [{age: {$gt: 40}}, { isMarried: false}])
+          .select('name')
+          .sort('name');
   console.log(users);
 }
-fetchUser();
+fetchInformation();
+
+// async function fetchInformation() {
+//   const users =
+//       await User
+//           .find()
+//           .or( [{age: {$gt: 40}}, { isMarried: false}])
+//           .select('name');
+//   console.log(users);
+// }
+// fetchInformation();
+
+// async function fetchInformation() {
+//   const users = await User.find().or( [{age: {$gt: 40}}, { isMarried: false}]);
+//   console.log(users);
+// }
+// fetchInformation();
+
+// Comparison Operator
+// eq
+// ne
+// gt
+// gte
+// lt
+// lte
+// in
+// nin
+
+
+
+// async function fetchInformation() {
+//   // const users = await User.find({
+//   //   age: { $gt: 30 }
+//   //});
+//   const users = await User.find({
+//     salary: { $nin: [40000,45000] },
+//   })
+//   console.log(users);
+// }
+// fetchInformation();
+
+// async function fetchInformation1() {
+//   const users = await User.find().and([{isMarried: true},{age:35}]);
+//   console.log(users);
+// }
+// fetchInformation1();
+
+
+// async function fetchUser() {
+//   const users = await User.find({
+//     isMarried: false,
+//   }).select('name salary').sort('-salary').limit(2);
+//   // User.find({isMarried:false}).countDocuments();
+//   console.log(users);
+// }
+// fetchUser();
 
 // async function storeInformation(){
 //   const user = new User({
