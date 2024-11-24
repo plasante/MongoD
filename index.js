@@ -27,17 +27,34 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// Find users whose age is greater than 40 or they are not married
-async function fetchInformation() {
-  const users =
-      await User
-          .find()
-          .or( [{age: {$gt: 40}}, { isMarried: false}])
-          .select('name')
-          .sort('name');
-  console.log(users);
+async function updateUser() {
+  const user =
+      await User.findByIdAndUpdate('6741e77213a06ffc0c9228b6',{
+        isMarried: false, age: 68
+      }, {new: true, runValidators: true});
+  console.log(user);
 }
-fetchInformation();
+updateUser();
+
+// async function updateUser() {
+//   const user = await User.findById('6741e77213a06ffc0c9228b6');
+//   user.isMarried = !user.isMarried;
+//   await user.save();
+//   console.log(user);
+// }
+// updateUser();
+
+// Find users whose age is greater than 40 or they are not married
+// async function fetchInformation() {
+//   const users =
+//       await User
+//           .find()
+//           .or( [{age: {$gt: 40}}, { isMarried: false}])
+//           .select('name')
+//           .sort('name');
+//   console.log(users);
+// }
+// fetchInformation();
 
 // async function fetchInformation() {
 //   const users =
